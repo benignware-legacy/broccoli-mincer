@@ -3,7 +3,7 @@ broccoli-mincer
 
 > Mince broccoli with sprockets
 
-This broccoli-plugin let's you integrate mincer sprockets engine with your build.
+This broccoli-plugin let's you integrate [Mincer sprockets engine](https://github.com/nodeca/mincer "View mincer project at github.com") with your build.
 
 Basic Usage
 -----------
@@ -91,9 +91,9 @@ Retrieves the environment associated with the builder. Use this method to genera
 
 
 Example
-=======
+-------
 
-See tests for a more complete example of building a mincer sample-app using broccoli.
+See the tests for a more complete example of building a mincer sample-app using broccoli.
 
 ```cli
 npm test
