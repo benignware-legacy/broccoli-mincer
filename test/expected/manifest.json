@@ -1,15 +1,15 @@
 {
   "assets": {
-    "app.js": "app-719b5254edf5420780433cfadcafc7a1.js",
+    "app.js": "app-6f3aabb494f7719cb9b7f22a2725ca8b.js",
     "app.css": "app-72d0361ab0c6555db16c44dc2b267673.css",
     "stripes.png": "stripes-e32906c53e045fb9242b83bb63aa9b38.png"
   },
   "files": {
-    "app-719b5254edf5420780433cfadcafc7a1.js": {
+    "app-6f3aabb494f7719cb9b7f22a2725ca8b.js": {
       "logical_path": "app.js",
       "mtime": "2015-01-02T19:13:01.000Z",
-      "size": 90436,
-      "digest": "719b5254edf5420780433cfadcafc7a1"
+      "size": 257553,
+      "digest": "6f3aabb494f7719cb9b7f22a2725ca8b"
     },
     "app-72d0361ab0c6555db16c44dc2b267673.css": {
       "logical_path": "app.css",

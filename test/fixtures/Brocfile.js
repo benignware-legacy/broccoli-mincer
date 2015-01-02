@@ -23,8 +23,6 @@ var assetsTree = minceTree('app', {
   sourceMaps: true,
   embedMappingComments: true, 
   compress: false,
-  cssProcessor: 'csso',
-  jsCompressor: 'uglify',
   enable: [
     'autoprefixer'
   ],

@@ -91,7 +91,7 @@ Retrieves the environment associated with the builder. Use this method to genera
 
 
 Example
--------
+=======
 
 See tests for a more complete example of building a mincer sample-app using broccoli.
 
