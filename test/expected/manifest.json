@@ -1,0 +1,27 @@
+{
+  "assets": {
+    "app.js": "app-719b5254edf5420780433cfadcafc7a1.js",
+    "app.css": "app-72d0361ab0c6555db16c44dc2b267673.css",
+    "stripes.png": "stripes-e32906c53e045fb9242b83bb63aa9b38.png"
+  },
+  "files": {
+    "app-719b5254edf5420780433cfadcafc7a1.js": {
+      "logical_path": "app.js",
+      "mtime": "2015-01-02T19:13:01.000Z",
+      "size": 90436,
+      "digest": "719b5254edf5420780433cfadcafc7a1"
+    },
+    "app-72d0361ab0c6555db16c44dc2b267673.css": {
+      "logical_path": "app.css",
+      "mtime": "2015-01-02T19:07:05.000Z",
+      "size": 148605,
+      "digest": "72d0361ab0c6555db16c44dc2b267673"
+    },
+    "stripes-e32906c53e045fb9242b83bb63aa9b38.png": {
+      "logical_path": "stripes.png",
+      "mtime": "2015-01-01T14:45:38.000Z",
+      "size": 117,
+      "digest": "e32906c53e045fb9242b83bb63aa9b38"
+    }
+  }
+}

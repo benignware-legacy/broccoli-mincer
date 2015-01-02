@@ -1,0 +1,24 @@
+{
+  "indent" : 2,
+  "boss": true,
+  "curly": true,
+  "eqeqeq": true,
+  "eqnull": true,
+  "expr": true,
+  "immed": true,
+  "noarg": true,
+  "onevar": false,
+  "smarttabs": true,
+  "unused": true,
+  "node": true, 
+  "white": true,
+  "nomen": true,
+  "stupid": true, 
+  "predef": [
+    "before",
+    "describe",
+    "it",
+    "Uint8Array",
+    "toBuffer"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "broccoli-mincer",
+  "version": "1.0.0",
+  "ignore": [
+    ".jshintrc",
+    "**/*.txt"
+  ],
+  "devDependencies": {
+    "bootstrap": "3.3.1"
+  }
+}

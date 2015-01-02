@@ -26,3 +26,13 @@ node_modules
 
 # Users Environment Variables
 .lock-wscript
+
+# Eclipse
+.project
+.settings
+
+# GFM preview
+.README.md.html
+
+# Build
+tmp

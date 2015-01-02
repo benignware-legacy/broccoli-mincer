@@ -1,0 +1,53 @@
+{
+  "name": "broccoli-mincer",
+  "version": "0.0.1",
+  "description": "Mince broccoli with sprockets",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "lint": "jslint *.js test/*.js"
+  },
+  "keywords": [
+    "broccoli-plugin", "mincer", "sprockets", "asset pipeline"
+  ],
+  "author": "Rafael Nowrotek <mail@benignware.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benignware/broccoli-mincer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/benignware/broccoli-mincer/issues"
+  },
+  "dependencies": {
+    "broccoli-merge-trees": "^0.1.3",
+    "broccoli-kitchen-sink-helpers": "^0.2.0",
+    "broccoli-writer": "^0.1.1",
+    "broccoli-caching-writer": "^0.5.4",
+    "mincer": "^1.2.2",
+    "node-fs": "^0.1.7",
+    "glob": "^3.2.9",
+    "path-complete-extname": "^0.1.0",
+    "deepmerge": "^0.2.7",
+    "source-map": "^0.1.42",
+    "pako": "^0.2.5",
+    "transformers": "^3.1.0",
+    "RSVP": "^3.0.16"
+  },
+  "devDependencies": {
+    "autoprefixer-core": "^4.0.2",
+    "assert-dir-equal": "1.0.1",
+    "broccoli": "^0.13.2",
+    "broccoli-jade": "^1.0.1",
+    "broccoli-static-compiler": "^0.1.4",
+    "coffee-script": "^1.8.0",
+    "ejs": "^1.0.0",
+    "expect.js": "^0.3.1",
+    "less": "^2.0.1",
+    "mocha": "^2.1.0",
+    "rimraf": "^2.2.8",
+    "jade": "^1.8.2",
+    "jslint": "^0.7.1",
+    "uglify-js": "^2.4.16"
+  }
+}
