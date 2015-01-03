@@ -1,6 +1,6 @@
 {
   "name": "broccoli-mincer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Mince broccoli with sprockets",
   "main": "index.js",
   "scripts": {
