@@ -21,7 +21,7 @@ var SourceNode = require('source-map').SourceNode;
 var pako = require('pako');
 
 function BroccoliMincer(inputTree, options) {
-
+  
   if (!(this instanceof BroccoliMincer)) {
     return new BroccoliMincer(inputTree, options);
   }
@@ -32,6 +32,8 @@ function BroccoliMincer(inputTree, options) {
   // Init properties
   this.inputTree = inputTree;
   this.options = merge({
+    digest: true,
+    originalPaths: false,
     manifest: 'manifest.json',
     sourceMaps: false, 
     embedMappingComments: false, 
@@ -56,6 +58,8 @@ BroccoliMincer.prototype.environment = function () {
 
 BroccoliMincer.prototype.write = function (readPath, destDir) {
 //BroccoliMincer.prototype.updateCache = function (srcPaths, destDir) {
+  
+  
   var
     self = this,
     options = this.options,
@@ -63,7 +67,8 @@ BroccoliMincer.prototype.write = function (readPath, destDir) {
     inputFiles = [],
     resolvedAssets = [],
     environment,
-    Impl = options.impl || options.manifest ? Mincer.Manifest : BroccoliMincer.Manifest;
+    Impl = options.impl || (!options.digest || options.originalPaths || !options.manifest ? BroccoliMincer.Manifest : Mincer.Manifest);
+    
     
   return readPath(inputTree).then(function (srcDir) {
   //return srcPaths.forEach(function (srcDir) {
@@ -136,7 +141,6 @@ BroccoliMincer.prototype.write = function (readPath, destDir) {
       //environment.appendPath(dir);
     });
     
-    
     // Compile
     (new Impl(environment, path.join(destDir, options.manifest || ""))).compile(resolvedAssets, options);
     
@@ -161,20 +165,18 @@ function gzip(data) {
 function findAssetPath(asset, options) {
   options = options || {};
   if (asset) {
-    var assetPath = options.digest === undefined || options.digest ? asset.digestPath : asset.relativePath;
+    var assetPath = options.digest === undefined || options.digest ? asset.digestPath : asset.relativePath.replace(/^\/|\\/g, '');
     if (options.originalPaths) {
-      assetPath = path.join(path.dirname(asset.relativePath).replace(/^\/|\\/g, ''), path.basename(assetPath, pathCompleteExtname(assetPath))) + path.extname(asset.logicalPath);
-    } else {
-      assetPath = asset.digestPath;
+      assetPath = path.join(path.dirname(asset.relativePath), path.basename(assetPath, pathCompleteExtname(assetPath))) + path.extname(asset.logicalPath);
     }
     return assetPath;
   }
   return "";
 }
 
-BroccoliMincer.Manifest = function (environment, path) {
+BroccoliMincer.Manifest = function (environment, pathname) {
   this.environment = environment;
-  this.path = path;
+  this.path = pathname;
 };
 
 BroccoliMincer.Manifest.prototype.compile = function (files, options) {
@@ -185,7 +187,7 @@ BroccoliMincer.Manifest.prototype.compile = function (files, options) {
       assets: {},
       files: {}
     },
-    pathIsDir = fs.lstatSync(this.path).isDirectory(),
+    pathIsDir = fs.existsSync(this.path) && fs.lstatSync(this.path).isDirectory(),
     destDir = this.path && !pathIsDir ? path.dirname(this.path) : this.path;
   
   files.forEach(function (file) {
@@ -195,6 +197,7 @@ BroccoliMincer.Manifest.prototype.compile = function (files, options) {
       assetPath = findAssetPath(asset, options),
       assetFile = path.join(destDir, assetPath),
       assetBuffer = asset.buffer;
+    
     
     // Setup manifest data for asset
     data.assets[asset.logicalPath] = assetPath;
