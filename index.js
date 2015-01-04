@@ -27,7 +27,7 @@ function BroccoliMincer(inputTree, options) {
   }
   
   // Call super constructor
-  //CachingWriter.apply(this, arguments);
+  CachingWriter.apply(this, arguments);
   
   // Init properties
   this.inputTree = inputTree;
@@ -49,29 +49,28 @@ function BroccoliMincer(inputTree, options) {
   // Setup during build
   this._environment = null;
 }
-BroccoliMincer.prototype = Object.create(Writer.prototype);
-BroccoliMincer.prototype.constructor = Writer;
+BroccoliMincer.prototype = Object.create(CachingWriter.prototype);
+BroccoliMincer.prototype.constructor = CachingWriter;
 BroccoliMincer.prototype.description = 'broccoli-mincer';
 BroccoliMincer.prototype.environment = function () {
   return this._environment;
 };
 
-BroccoliMincer.prototype.write = function (readPath, destDir) {
-//BroccoliMincer.prototype.updateCache = function (srcPaths, destDir) {
-  
+//BroccoliMincer.prototype.write = function (readPath, destDir) {
+BroccoliMincer.prototype.updateCache = function (srcPaths, destDir) {
   
   var
     self = this,
     options = this.options,
-    inputTree = this.inputTree,
     inputFiles = [],
     resolvedAssets = [],
     environment,
     Impl = options.impl || (!options.digest || options.originalPaths || !options.manifest ? BroccoliMincer.Manifest : Mincer.Manifest);
+    //Impl = BroccoliMincer.Manifest;
     
     
-  return readPath(inputTree).then(function (srcDir) {
-  //return srcPaths.forEach(function (srcDir) {
+  //return readPath(inputTree).then(function (srcDir) {
+  return srcPaths.forEach(function (srcDir) {
     
     // Filter input files on order to allow none
     if (options.allowNone) {
@@ -91,6 +90,21 @@ BroccoliMincer.prototype.write = function (readPath, destDir) {
       if (!options.allowNone) {
         throw e;
       }
+    }
+    
+    // Strip out invalid files
+    inputFiles = inputFiles.filter(function(file) {
+      // Remove files without extension, i.e. LICENSE
+      if (path.extname(path.basename(file)) !== "") {
+        return file;
+      }
+      return null;
+    });
+    
+    //console.log("Source assets: ", JSON.stringify({files: inputFiles}, null, "  "));
+    
+    if (!inputFiles.length && !options.allowNone) {
+      throw("No valid input files found");
     }
     
     // Resolve asset paths
@@ -137,8 +151,10 @@ BroccoliMincer.prototype.write = function (readPath, destDir) {
     
     // Setup environment paths
     (typeof options.paths === "string" ? [options.paths] : options.paths || []).forEach(function (dir) {
-      environment.appendPath(path.join(path.resolve(srcDir), dir));
-      //environment.appendPath(dir);
+      if (path.resolve(dir) !== path.normalize(dir)) {
+        dir = path.join(path.resolve(srcDir), dir);
+      }
+      environment.appendPath(dir);
     });
     
     // Compile
@@ -165,10 +181,16 @@ function gzip(data) {
 function findAssetPath(asset, options) {
   options = options || {};
   if (asset) {
-    var assetPath = options.digest === undefined || options.digest ? asset.digestPath : asset.relativePath.replace(/^\/|\\/g, '');
+    var 
+      assetPath = options.digest === undefined || options.digest ? asset.digestPath : asset.relativePath.replace(/^(?:\/|\\)/g, ''),
+      assetDir = path.dirname(assetPath),
+      assetBase = path.basename(assetPath, pathCompleteExtname(assetPath)),
+      assetExt = path.extname(asset.digestPath);
+      
     if (options.originalPaths) {
-      assetPath = path.join(path.dirname(asset.relativePath), path.basename(assetPath, pathCompleteExtname(assetPath))) + path.extname(asset.logicalPath);
+      assetDir = path.join(path.dirname(asset.relativePath));
     }
+    assetPath = path.join(assetDir, assetBase) + assetExt;
     return assetPath;
   }
   return "";
@@ -189,7 +211,7 @@ BroccoliMincer.Manifest.prototype.compile = function (files, options) {
     },
     pathIsDir = fs.existsSync(this.path) && fs.lstatSync(this.path).isDirectory(),
     destDir = this.path && !pathIsDir ? path.dirname(this.path) : this.path;
-  
+
   files.forEach(function (file) {
 
     var
@@ -197,7 +219,6 @@ BroccoliMincer.Manifest.prototype.compile = function (files, options) {
       assetPath = findAssetPath(asset, options),
       assetFile = path.join(destDir, assetPath),
       assetBuffer = asset.buffer;
-    
     
     // Setup manifest data for asset
     data.assets[asset.logicalPath] = assetPath;
@@ -228,6 +249,7 @@ BroccoliMincer.Manifest.prototype.compile = function (files, options) {
         writeFile(assetFile + '.map.gz', gzip(')]}\'\n' + asset.sourceMap), asset.mtime);
       }
     }
+    
   });
   
   // Write manifest.json
