@@ -3,7 +3,7 @@ broccoli-mincer
 
 > Mince broccoli with sprockets
 
-This broccoli-plugin let's you integrate [Mincer sprockets engine](https://github.com/nodeca/mincer "View mincer project at github.com") with your build.
+This broccoli-plugin let's you integrate [Mincer sprockets engine](https://github.com/nodeca/mincer "View mincer project on github.com") with your build.
 
 Basic Usage
 -----------
