@@ -9,7 +9,6 @@
 var fs = require('node-fs');
 var path = require('path');
 var pathCompleteExtname = require('path-complete-extname');
-var RSVP = require('rsvp');
 var BroccoliHelpers = require('broccoli-kitchen-sink-helpers');
 var Writer = require('broccoli-writer');
 var glob = require('glob');
