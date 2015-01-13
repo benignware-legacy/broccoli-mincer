@@ -12,7 +12,6 @@ var pathCompleteExtname = require('path-complete-extname');
 var RSVP = require('rsvp');
 var BroccoliHelpers = require('broccoli-kitchen-sink-helpers');
 var Writer = require('broccoli-writer');
-var CachingWriter = require('broccoli-caching-writer');
 var glob = require('glob');
 var Mincer = require('mincer');
 var merge = require('deepmerge');
@@ -25,9 +24,6 @@ function BroccoliMincer(inputTree, options) {
   if (!(this instanceof BroccoliMincer)) {
     return new BroccoliMincer(inputTree, options);
   }
-  
-  // Call super constructor
-  CachingWriter.apply(this, arguments);
   
   // Init properties
   this.inputTree = inputTree;
@@ -49,15 +45,14 @@ function BroccoliMincer(inputTree, options) {
   // Setup during build
   this._environment = null;
 }
-BroccoliMincer.prototype = Object.create(CachingWriter.prototype);
-BroccoliMincer.prototype.constructor = CachingWriter;
+BroccoliMincer.prototype = Object.create(Writer.prototype);
+BroccoliMincer.prototype.constructor = Writer;
 BroccoliMincer.prototype.description = 'broccoli-mincer';
 BroccoliMincer.prototype.environment = function () {
   return this._environment;
 };
 
-//BroccoliMincer.prototype.write = function (readPath, destDir) {
-BroccoliMincer.prototype.updateCache = function (srcPaths, destDir) {
+BroccoliMincer.prototype.write = function (readPath, destDir) {
   
   var
     self = this,
@@ -67,11 +62,9 @@ BroccoliMincer.prototype.updateCache = function (srcPaths, destDir) {
     environment,
     Impl = options.impl || (!options.digest || options.originalPaths || !options.manifest ? BroccoliMincer.Manifest : Mincer.Manifest);
     //Impl = BroccoliMincer.Manifest;
-    
-    
-  //return readPath(inputTree).then(function (srcDir) {
-  return srcPaths.forEach(function (srcDir) {
-    
+   
+  return readPath(this.inputTree).then(function (srcDir) {
+  
     // Filter input files on order to allow none
     if (options.allowNone) {
       options.inputFiles.forEach(function (file) {

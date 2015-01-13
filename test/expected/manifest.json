@@ -1,25 +1,25 @@
 {
   "assets": {
     "app.js": "app-6f3aabb494f7719cb9b7f22a2725ca8b.js",
-    "app.css": "app-72d0361ab0c6555db16c44dc2b267673.css",
+    "app.css": "app-ba4af7824e74736e1aefaeb87d1b9ea8.css",
     "stripes.png": "stripes-e32906c53e045fb9242b83bb63aa9b38.png"
   },
   "files": {
     "app-6f3aabb494f7719cb9b7f22a2725ca8b.js": {
       "logical_path": "app.js",
-      "mtime": "2015-01-02T19:13:01.000Z",
+      "mtime": "2015-01-12T19:10:36.000Z",
       "size": 257553,
       "digest": "6f3aabb494f7719cb9b7f22a2725ca8b"
     },
-    "app-72d0361ab0c6555db16c44dc2b267673.css": {
+    "app-ba4af7824e74736e1aefaeb87d1b9ea8.css": {
       "logical_path": "app.css",
-      "mtime": "2015-01-02T19:07:05.000Z",
-      "size": 148605,
-      "digest": "72d0361ab0c6555db16c44dc2b267673"
+      "mtime": "2015-01-12T19:10:36.000Z",
+      "size": 144315,
+      "digest": "ba4af7824e74736e1aefaeb87d1b9ea8"
     },
     "stripes-e32906c53e045fb9242b83bb63aa9b38.png": {
       "logical_path": "stripes.png",
-      "mtime": "2015-01-01T14:45:38.000Z",
+      "mtime": "2015-01-12T19:10:36.000Z",
       "size": 117,
       "digest": "e32906c53e045fb9242b83bb63aa9b38"
     }
