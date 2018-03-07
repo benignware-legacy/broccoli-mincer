@@ -27,7 +27,7 @@
     "mincer": "^1.2.2",
     "node-fs": "^0.1.7",
     "glob": "^3.2.9",
-    "path-complete-extname": "^0.1.0",
+    "path-complete-extname": "^1.0.0",
     "deepmerge": "^0.2.7",
     "source-map": "^0.1.42",
     "pako": "^0.2.5",
